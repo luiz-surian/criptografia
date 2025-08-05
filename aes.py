@@ -24,7 +24,7 @@ def unpad(data):
     padding_length = data[-1]
     # Verifica se o padding é válido.
     if padding_length < 1 or padding_length > 16:
-        raise ValueError("Invalid padding encountered")
+        raise ValueError("Padding Inválido")
     return data[:-padding_length]
 
 
@@ -43,7 +43,7 @@ def encrypt_file(input_file, output_file):
         encoded_iv = iv.hex()
         return encoded_key, encoded_iv
     except Exception as e:
-        print(f"An error occurred during encryption: {e}")
+        print(f"Um erro ocorreu durante a encriptação: {e}")
         return None, None
 
 
@@ -60,21 +60,21 @@ def decrypt_file(key, iv, input_file, output_file):
         with open(output_file, 'wb') as f:
             f.write(decrypted_data)
     except Exception as e:
-        print(f"An error occurred during decryption: {e}")
+        print(f"Um erro ocorreu durante a encriptação: {e}")
 
 
 if __name__ == "__main__":
-    input_file = "HelloWorld.txt"
-    encrypted_file = "Encrypted_HelloWorld"
-    decrypted_file = "Decrypted_HelloWorld.txt"
+    input_file = "ref/via_lactea_olavo_bilac.txt"
+    encrypted_file = "Encrypted_File"
+    decrypted_file = "Decrypted_File.txt"
 
-    # Encrypt the file
+    # Encriptar um arquivo
     key, iv = encrypt_file(input_file, encrypted_file)
     if key and iv:
-        print("File encrypted successfully.")
-        print("Key:", key)
+        print("Arquivo encriptado com sucesso.")
+        print("Chave:", key)
         print("IV:", iv)
         decrypt_file(key, iv, encrypted_file, decrypted_file)
-        print("File decrypted successfully.")
+        print("Arquivo decriptado com sucesso.")
     else:
-        print("Encryption failed.")
+        print("Encriptação falhou.")
