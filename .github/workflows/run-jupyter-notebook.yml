@@ -1,0 +1,53 @@
+name: Run Jupyter Notebook
+
+on:
+  workflow_dispatch: # Manual trigger.
+
+env:
+  # Path to your Jupyter Notebook.
+  NOTEBOOK_PATH: 'algoritmos\4_AES.ipynb'
+
+  # Specify the Python version you need.
+  PYTHON_VERSION: '3.11'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+
+    - name: Install dependencies
+      run: |
+        # Installing Python Dependencies
+
+        # Upgrade pip
+        python -m pip install --upgrade pip
+
+        # Install dependencies from requirements.txt if it exists
+        if [ -f "requirements.txt" ]; then
+          pip install -r requirements.txt
+        fi
+
+        # Install Papermill for executing Jupyter Notebooks
+        pip install papermill
+
+    - name: Run Jupyter Notebook
+      run: |
+        # Execute the desired Jupyter Notebook
+        papermill local/${{ env.NOTEBOOK_PATH }} local/output.ipynb
+
+    - name: Upload executed notebook as artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: executed-notebook
+        path: output.ipynb
+        if-no-files-found: error
+        retention-days: 1
+        overwrite: true
