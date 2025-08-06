@@ -37,6 +37,8 @@ jobs:
         fi
 
         # Install Papermill for executing Jupyter Notebooks
+        pip install --upgrade pip ipython ipykernel
+        ipython kernel install --name "python3" --user
         pip install papermill
 
     - name: Run Jupyter Notebook
