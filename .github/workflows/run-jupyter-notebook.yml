@@ -5,7 +5,7 @@ on:
 
 env:
   # Path to your Jupyter Notebook.
-  NOTEBOOK_PATH: 'algoritmos\4_AES.ipynb'
+  NOTEBOOK_PATH: 'algoritmos/4_AES.ipynb'
 
   # Specify the Python version you need.
   PYTHON_VERSION: '3.11'
